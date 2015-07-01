@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.heinemann.jersey.apmplanner</groupId>
+	<artifactId>com.heinemann.jersey.apmplanner</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.heinemann.grpc</groupId>
+			<artifactId>apmplanner</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>WebContent\WEB-INF\web.xml</webXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+				<configuration>
+					<terse>false</terse>
+					<echo>true</echo>
+					<debug>true</debug>
+					<glassfishDirectory>${glassfish.glassfishDirectory}</glassfishDirectory>
+					<user>${glassfish.user}</user>
+					<adminPassword>${glassfish.adminPassword}</adminPassword>
+					<domain>
+						<name>${glassfish.domain.name}</name>
+						<host>${glassfish.domain.host}</host>
+						<adminPort>${glassfish.domain.adminPort}</adminPort>
+					</domain>
+					<components>
+						<component>
+							<name>${project.artifactId}</name>
+							<artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
+						</component>
+					</components>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
