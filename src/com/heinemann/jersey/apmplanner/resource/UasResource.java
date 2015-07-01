@@ -16,7 +16,15 @@ import com.heinemann.jersey.apmplanner.model.Uas;
 
 @Path("/uas")
 public class UasResource {
-
+	
+	public static final String COMMAND = "command";
+	public static final String COMMAND_GO = "go";
+	public static final String COMMAND_HOME = "home";
+	public static final String COMMAND_LAND = "land";
+	public static final String COMMAND_LAUNCH = "launch";
+	public static final String COMMAND_REBOOT = "reboot";
+	public static final String COMMAND_SHUTDOWN = "shutdown";
+	
 	@GET
 	@Produces({
 		MediaType.TEXT_PLAIN,
@@ -25,7 +33,7 @@ public class UasResource {
 		MediaType.APPLICATION_XHTML_XML,
 		MediaType.APPLICATION_JSON })
 	public Uas getUas() {
-		UasManagerClient client = new UasManagerClient("rigi-lab-03.cs.uvic.ca", 50051);
+		UasManagerClient client = new UasManagerClient(UasManagerClient.HOST, UasManagerClient.PORT);
 		int identifier = client.getActiveUas();
 		ApmPlanner.Uas clientUas = client.getUas(identifier);
 		
@@ -53,10 +61,33 @@ public class UasResource {
 	@POST
 	//@Produces(MediaType.TEXT_HTML) (redirect to command form)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response command(@FormParam("command") String command) {
-		UasManagerClient client = new UasManagerClient("rigi-lab-03.cs.uvic.ca", 50051);
-		client.reboot();
-		return Response.accepted().build();
+	public Response command(@FormParam(COMMAND) String command) {
+		Response response = Response.accepted().build();
+		UasManagerClient client = new UasManagerClient(UasManagerClient.HOST, UasManagerClient.PORT);
+		switch (command) {
+		case COMMAND_GO:
+			client.go();
+			break;
+		case COMMAND_HOME:
+			client.home();
+			break;
+		case COMMAND_LAND:
+			client.land();
+			break;
+		case COMMAND_LAUNCH:
+			client.launch();
+			break;
+		case COMMAND_REBOOT:
+			client.reboot();
+			break;
+		case COMMAND_SHUTDOWN:
+			client.shutdown();
+			break;
+		default:
+			response = Response.serverError().build();
+		}
+		
+		return response;
 	}
 
 }
