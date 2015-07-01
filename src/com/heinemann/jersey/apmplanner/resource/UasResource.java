@@ -1,5 +1,7 @@
 package com.heinemann.jersey.apmplanner.resource;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -49,8 +51,12 @@ public class UasResource {
 	}
 	
 	@POST
-	public Response reboot() {
-		return null;
+	//@Produces(MediaType.TEXT_HTML) (redirect to command form)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response command(@FormParam("command") String command) {
+		UasManagerClient client = new UasManagerClient("rigi-lab-03.cs.uvic.ca", 50051);
+		client.reboot();
+		return Response.accepted().build();
 	}
 
 }
