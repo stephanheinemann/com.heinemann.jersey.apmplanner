@@ -21,6 +21,12 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<webXml>WebContent\WEB-INF\web.xml</webXml>
+					<webResources>
+						<resource>
+							<directory>${basedir}/WebContent</directory>
+						</resource>
+					</webResources>
+					<warSourceDirectory>WebContent</warSourceDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
