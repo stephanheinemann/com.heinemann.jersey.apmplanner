@@ -16,7 +16,12 @@ public class Uas {
 	private double roll;
 	private double pitch;
 	private double yaw;
+	private EventSubscribers subscribers;
 
+	public Uas() {
+		this.subscribers = new EventSubscribers();
+	}
+	
 	public int getIdentifier() {
 		return identifier;
 	}
@@ -111,5 +116,13 @@ public class Uas {
 
 	public void setYaw(double yaw) {
 		this.yaw = yaw;
+	}
+
+	public EventSubscribers getSubscribers() {
+		return subscribers;
+	}
+
+	public void setSubscribers(EventSubscribers subscribers) {
+		this.subscribers = subscribers;
 	}
 }

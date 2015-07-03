@@ -1,14 +1,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<script type="text/javascript">
+var request = new XMLHttpRequest();
+
+function submitPut(url) {
+	var uasForm = document.getElementById("uasform");
+	var mimeType = "application/x-www-form-urlencoded";
+	request.open("PUT", url);
+	request.setRequestHeader("Content-Type", mimeType);
+	request.send(new FormData(uasForm));
+}
+</script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>UAS Command Center</title>
 </head>
 <body>
 	<h1>UAS Command Center</h1>
-	<form action="../com.heinemann.jersey.apmplanner-0.0.1-SNAPSHOT/rest/uas" method="POST">
+	<hr>
+	<form id="commandform" action="../com.heinemann.jersey.apmplanner/rest/uas" method="POST">
 		<label for="command">Command</label>
-		<select name="command">
+		<select id="command">
 			<option value="go" selected>go</option>
 			<option value="home">home</option>
 			<option value="land">land</option>
@@ -17,6 +29,34 @@
 			<option value="shutdown">shutdown</option>
 		</select>
 		<input type="submit" value="Submit" />
+	</form>
+	<hr>
+	<form id="uasform" action="../com.heinemann.jersey.apmplanner/rest/uas" method="POST">
+		<table>
+			<tr>
+				<td><label for="mode">Mode</label></td>
+				<td>
+				<select id="mode">
+					<option value="0" selected>Stabilized</option>
+					<option value="3">Auto</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="armed">Armed</label></td>
+				<td>
+				<select id="armed">
+					<option value="false" selected>Disarmed</option>
+					<option value="true">Armed</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="subscriber">Subscriber</label></td>
+				<td><input id="subscriber" type="text"></td>
+			</tr>
+		</table>
+		<input type="button" value="Submit" onClick="submitPut('../com.heinemann.jersey.apmplanner/rest/uas')">
 	</form>
 </body>
 </html>
