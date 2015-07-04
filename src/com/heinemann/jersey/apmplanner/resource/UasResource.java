@@ -1,11 +1,8 @@
 package com.heinemann.jersey.apmplanner.resource;
 
 import java.io.IOException;
-import java.util.Iterator;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,18 +12,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-
 import com.heinemann.grpc.apmplanner.ApmPlanner;
-import com.heinemann.grpc.apmplanner.ApmPlanner.UasSubscriber;
 import com.heinemann.grpc.apmplanner.UasManagerClient;
-import com.heinemann.jersey.apmplanner.model.EventSubscribers;
 import com.heinemann.jersey.apmplanner.model.Uas;
 
 @Path("/uas")
 public class UasResource {
-	
-	public static final String SUBSCRIBER = "subscriber";
 	
 	//TODO: retrieve supported commands and modes
 	//TODO: ArduPilotMegaMAV ApmCopter CustomMode
@@ -63,6 +54,7 @@ public class UasResource {
 	@Produces({
 		MediaType.TEXT_PLAIN,
 		MediaType.TEXT_HTML,
+		MediaType.TEXT_XML,
 		MediaType.APPLICATION_XML,
 		MediaType.APPLICATION_XHTML_XML,
 		MediaType.APPLICATION_JSON })
@@ -84,13 +76,6 @@ public class UasResource {
 		uas.setPitch(clientUas.getPitch());
 		uas.setYaw(clientUas.getYaw());
 		
-		EventSubscribers subscribers = uas.getSubscribers();
-		Iterator<UasSubscriber> uasSubscribers = client.getSubscribers();
-		while (uasSubscribers.hasNext()) {
-			UasSubscriber uasSubscriber = uasSubscribers.next();
-			subscribers.addSubscriber(UriBuilder.fromUri(uasSubscriber.getSubscriber()).build());
-		}
-		
 		return uas;
 	}
 	
@@ -100,27 +85,13 @@ public class UasResource {
 	public Response setUas(
 			@FormParam(MODE) int mode,
 			@FormParam(ARMED) boolean armed,
-			@FormParam(SUBSCRIBER) String subscriber,
 			@Context HttpServletResponse servletResponse) throws IOException {
 		Response response = Response.accepted().build();
 		UasManagerClient client = new UasManagerClient(UasManagerClient.HOST, UasManagerClient.PORT);
 		
-		//client.setMode(mode);
-		//client.setArmed(armed);
-		client.addSubscriber(subscriber);
-		
+		client.setMode(mode);
+		client.setArmed(armed);
 		servletResponse.sendRedirect(COMMAND_URL);
-		
-		return response;
-	}
-	
-	@DELETE
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response removeSubscriber(@FormParam(SUBSCRIBER) String subscriber) {
-		Response response = Response.accepted().build();
-		UasManagerClient client = new UasManagerClient(UasManagerClient.HOST, UasManagerClient.PORT);
-	
-		client.removeSubscriber(subscriber);
 		
 		return response;
 	}
@@ -158,7 +129,6 @@ public class UasResource {
 		}
 		
 		servletResponse.sendRedirect(COMMAND_URL);
-		
 		return response;
 	}
 

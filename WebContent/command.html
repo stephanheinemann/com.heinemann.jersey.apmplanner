@@ -3,12 +3,12 @@
 <script type="text/javascript">
 var request = new XMLHttpRequest();
 
-function submitPut(url) {
-	var uasForm = document.getElementById("uasform");
+function submitForm(method, url, formId) {
+	var form = document.getElementById(formId);
 	var mimeType = "application/x-www-form-urlencoded";
-	request.open("PUT", url);
+	request.open(method, url);
 	request.setRequestHeader("Content-Type", mimeType);
-	request.send(new FormData(uasForm));
+	request.send(new FormData(form));
 }
 </script>
 <head>
@@ -18,9 +18,9 @@ function submitPut(url) {
 <body>
 	<h1>UAS Command Center</h1>
 	<hr>
-	<form id="commandform" action="../com.heinemann.jersey.apmplanner/rest/uas" method="POST">
+	<form id="commandform" name="uasform" action="../com.heinemann.jersey.apmplanner/rest/uas" method="POST">
 		<label for="command">Command</label>
-		<select id="command">
+		<select id="command" name="command">
 			<option value="go" selected>go</option>
 			<option value="home">home</option>
 			<option value="land">land</option>
@@ -31,12 +31,12 @@ function submitPut(url) {
 		<input type="submit" value="Submit" />
 	</form>
 	<hr>
-	<form id="uasform" action="../com.heinemann.jersey.apmplanner/rest/uas" method="POST">
+	<form id="uasform" name="uasform">
 		<table>
 			<tr>
 				<td><label for="mode">Mode</label></td>
 				<td>
-				<select id="mode">
+				<select id="mode" name="mode">
 					<option value="0" selected>Stabilized</option>
 					<option value="3">Auto</option>
 				</select>
@@ -45,18 +45,14 @@ function submitPut(url) {
 			<tr>
 				<td><label for="armed">Armed</label></td>
 				<td>
-				<select id="armed">
+				<select id="armed" name="armed">
 					<option value="false" selected>Disarmed</option>
 					<option value="true">Armed</option>
 				</select>
 				</td>
 			</tr>
-			<tr>
-				<td><label for="subscriber">Subscriber</label></td>
-				<td><input id="subscriber" type="text"></td>
-			</tr>
 		</table>
-		<input type="button" value="Submit" onClick="submitPut('../com.heinemann.jersey.apmplanner/rest/uas')">
+		<input type="button" value="Submit" onClick="submitForm('PUT','../com.heinemann.jersey.apmplanner/rest/uas','uasform')">
 	</form>
 </body>
 </html>
