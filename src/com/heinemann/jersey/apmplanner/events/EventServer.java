@@ -28,12 +28,14 @@ public class EventServer implements ServletContextListener {
 				EventServer.this.stop();
 			}
 		});
+		System.out.println("***** event server started *****");
 	}
 
 	private void stop() {
 		if (server != null) {
 			server.shutdown();
 		}
+		System.out.println("***** event server stopped *****");
 	}
 
 	@Override
