@@ -18,11 +18,11 @@ function submitForm(method, url, formId) {
 <body>
 	<h1>UAS Event Subscribers</h1>
 	<hr>
-	<form id="subscriberform" name="subscriberform" action="../com.heinemann.jersey.apmplanner/rest/subscribers" method="POST">
+	<form id="subscriberform" name="subscriberform" action="http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers" method="POST">
 		<label for="subscriber">Subscriber</label>
-		<input id="subscriber" name="subscriber" type="text" />
-		<input type="button" value="Add" onClick="submitForm('POST','../com.heinemann.jersey.apmplanner/rest/subscribers','subscriberform')" />
-		<input type="button" value="Remove" onClick="submitForm('DELETE','../com.heinemann.jersey.apmplanner/rest/subscribers' + document.getElementById('subscriber').value,'subscriberform')" />
+		<input id="subscriber" name="subscriber" type="text" value="http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.autonomic/rest/am" />
+		<input type="button" value="Add" onClick="submitForm('POST','http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers','subscriberform')" />
+		<input type="button" value="Remove" onClick="submitForm('DELETE','http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers/' + document.getElementById('subscriber').value,'subscriberform')" />
 	</form>
 </body>
 </html>

@@ -18,7 +18,7 @@ function submitForm(method, url, formId) {
 <body>
 	<h1>UAS Command Center</h1>
 	<hr>
-	<form id="commandform" name="uasform" action="../com.heinemann.jersey.apmplanner/rest/uas" method="POST">
+	<form id="commandform" name="uasform" action="http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/uas" method="POST">
 		<label for="command">Command</label>
 		<select id="command" name="command">
 			<option value="go" selected>go</option>
@@ -52,7 +52,7 @@ function submitForm(method, url, formId) {
 				</td>
 			</tr>
 		</table>
-		<input type="button" value="Submit" onClick="submitForm('PUT','../com.heinemann.jersey.apmplanner/rest/uas','uasform')">
+		<input type="button" value="Submit" onClick="submitForm('PUT','http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/uas','uasform')">
 	</form>
 </body>
 </html>
