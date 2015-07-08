@@ -22,6 +22,7 @@ import com.heinemann.grpc.apmplanner.ApmPlanner.UasSubscriber;
 import com.heinemann.grpc.apmplanner.events.ApmEvents.Null;
 import com.heinemann.grpc.apmplanner.events.ApmEvents.UasEvent;
 import com.heinemann.grpc.apmplanner.events.UasEventDistributionGrpc;
+import com.heinemann.grpc.apmplanner.events.XmlUasEvent;
 
 public class EventDistributor implements UasEventDistributionGrpc.UasEventDistribution {
 	
@@ -44,8 +45,13 @@ public class EventDistributor implements UasEventDistributionGrpc.UasEventDistri
 			Client distributor = ClientBuilder.newClient(config);
 			WebTarget service = distributor.target(subscriberUri);
 			
-			QName qname = new QName("http://www.heinemann.com", "uas-event");
-			JAXBElement<UasEvent> event = new JAXBElement<UasEvent>(qname, UasEvent.class, uasEvent);
+			XmlUasEvent xmlUasEvent = new XmlUasEvent();
+			xmlUasEvent.setIdentifier(uasEvent.getIdentifier());
+			xmlUasEvent.setSource(uasEvent.getSource());
+			xmlUasEvent.setParameters(uasEvent.getParameters());
+			
+			QName qname = new QName(XmlUasEvent.class.getSimpleName());
+			JAXBElement<XmlUasEvent> event = new JAXBElement<XmlUasEvent>(qname, XmlUasEvent.class, xmlUasEvent);
 			//TODO: check if not collecting responses (or registering listeners) creates an issue
 			service.request().async().post(Entity.entity(event, MediaType.APPLICATION_XML), Response.class);
 		}
