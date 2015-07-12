@@ -1,4 +1,3 @@
-<script type="text/javascript">
 var request = new XMLHttpRequest();
 
 function submitForm(method, url, fields) {
@@ -15,4 +14,3 @@ function encodeFields(fields) {
 	}
 	return values.join('&').replace(/%20/g, '+');
 }
-</script>

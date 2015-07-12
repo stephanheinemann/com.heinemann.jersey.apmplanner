@@ -1,16 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<script type="text/javascript">
-var request = new XMLHttpRequest();
-
-function submitForm(method, url, formId) {
-	var form = document.getElementById(formId);
-	var mimeType = "application/x-www-form-urlencoded";
-	request.open(method, url);
-	request.setRequestHeader("Content-Type", mimeType);
-	request.send(new FormData(form));
-}
-</script>
+<script type="text/javascript" src="scripts.js"></script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>UAS Event Subscribers</title>
@@ -18,11 +8,11 @@ function submitForm(method, url, formId) {
 <body>
 	<h1>UAS Event Subscribers</h1>
 	<hr>
-	<form id="subscriberform" name="subscriberform" action="http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers" method="POST">
+	<form id="subscriberform" name="subscriberform">
 		<label for="subscriber">Subscriber</label>
 		<input id="subscriber" name="subscriber" type="text" value="http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.autonomic/rest/am" />
-		<input type="button" value="Add" onClick="submitForm('POST','http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers','subscriberform')" />
-		<input type="button" value="Remove" onClick="submitForm('DELETE','http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers/' + document.getElementById('subscriber').value,'subscriberform')" />
+		<input type="button" value="Add" onClick="submitForm('PUT', 'http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers', ['subscriber'])" />
+		<input type="button" value="Remove" onClick="submitForm('DELETE', 'http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers/' + document.getElementById('subscriber').value, [])" />
 	</form>
 </body>
 </html>
