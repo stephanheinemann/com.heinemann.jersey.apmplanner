@@ -11,8 +11,10 @@
 	<form id="subscriberform" name="subscriberform">
 		<label for="subscriber">Subscriber</label>
 		<input id="subscriber" name="subscriber" type="text" value="http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.autonomic/rest/am" />
-		<input type="button" value="Add" onClick="submitForm('PUT', 'http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers', ['subscriber'])" />
-		<input type="button" value="Remove" onClick="submitForm('DELETE', 'http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers/' + document.getElementById('subscriber').value, [])" />
+		<input type="button" value="Add" onClick="submitForm('PUT', '../com.heinemann.jersey.apmplanner/rest/subscribers', ['subscriber'])" />
+		<input type="button" value="Remove" onClick="submitForm('DELETE', '../com.heinemann.jersey.apmplanner/rest/subscribers/' + document.getElementById('subscriber').value, [])" />
+		<!--input type="button" value="Add" onClick="submitForm('PUT', 'http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers', ['subscriber'])" /-->
+		<!--input type="button" value="Remove" onClick="submitForm('DELETE', 'http://rigi-lab-03.cs.uvic.ca:8080/com.heinemann.jersey.apmplanner/rest/subscribers/' + document.getElementById('subscriber').value, [])" /-->
 	</form>
 </body>
 </html>
