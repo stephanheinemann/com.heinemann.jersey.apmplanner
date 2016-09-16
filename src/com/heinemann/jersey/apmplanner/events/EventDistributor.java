@@ -24,12 +24,12 @@ import com.heinemann.grpc.apmplanner.events.ApmEvents.UasEvent;
 import com.heinemann.grpc.apmplanner.events.UasEventDistributionGrpc;
 import com.heinemann.grpc.apmplanner.events.XmlUasEvent;
 
-public class EventDistributor implements UasEventDistributionGrpc.UasEventDistribution {
+public class EventDistributor extends UasEventDistributionGrpc.UasEventDistributionImplBase {
 	
 	@Override
 	public void fire(UasEvent request, StreamObserver<Null> responseObserver) {
 		distribute(request);
-		responseObserver.onValue(Null.newBuilder().build());
+		responseObserver.onNext(Null.newBuilder().build());
 		responseObserver.onCompleted();
 	}
 

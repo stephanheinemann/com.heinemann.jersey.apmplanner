@@ -16,7 +16,15 @@
 		<servlet-name>Jersey REST Service</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+	<!--servlet>
+        	<servlet-name>javax.ws.rs.core.Application</servlet-name>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping-->
 	<listener>
 		<listener-class>com.heinemann.jersey.apmplanner.events.EventServer</listener-class>
 	</listener>
 </web-app>
+

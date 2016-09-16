@@ -8,18 +8,18 @@ import javax.servlet.ServletContextListener;
 
 import com.heinemann.grpc.apmplanner.events.UasEventDistributionGrpc;
 
-import io.grpc.ServerImpl;
-import io.grpc.transport.netty.NettyServerBuilder;
+import io.grpc.Server;
+import io.grpc.netty.NettyServerBuilder;
 
 public class EventServer implements ServletContextListener {
 
 	public static final String HOST = "rigi-lab-03.cs.uvic.ca";
 	public static final int PORT = 50052;
-	private ServerImpl server;
+	private Server server;
 
 	private void start() throws IOException {
 		server = NettyServerBuilder.forAddress(new InetSocketAddress(HOST, PORT))
-				.addService(UasEventDistributionGrpc.bindService(new EventDistributor())).build()
+				.addService((new EventDistributor()).bindService()).build()
 				.start();
 		
 		Runtime.getRuntime().addShutdownHook(new Thread() {
